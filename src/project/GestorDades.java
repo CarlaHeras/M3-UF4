@@ -1,12 +1,12 @@
 package project;
 
-        import org.json.simple.JSONArray;
-        import org.json.simple.JSONObject;
-        import org.json.simple.parser.JSONParser;
-        import java.io.*;
-        import java.net.HttpURLConnection;
-        import java.net.URL;
-        import java.util.Collections;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class GestorDades {
     //Declarem les 3 arrays a on passarem les dades de les llistes de la classe DadesAPI quan les necessitem en forma d'array.
@@ -91,16 +91,69 @@ public class GestorDades {
      */
     //Ordenem les llistes i les convertim a les arrays declarades adalt.
     public static void ordenarElements(DadesAPI dades) {
-        Collections.sort(dades.estudiants);
-        estudiants = new String[dades.estudiants.size()];
-        dades.estudiants.toArray(estudiants);
-        Collections.sort(dades.personatges);
-        personatges = new String[dades.personatges.size()];
-        dades.personatges.toArray(personatges);
-        Collections.sort(dades.professors);
-        professors = new String[dades.professors.size()];
-        dades.professors.toArray(professors);
+
+
+        String tempe;
+
+        for (int i = 0; i < dades.estudiants.size(); i++) {
+
+            for (int j = i + 1; j < dades.estudiants.size(); j++) {
+
+                if (dades.estudiants.get(i).compareTo(dades.estudiants.get(j)) < 0) {
+
+                    tempe = dades.estudiants.get(i);
+                    dades.estudiants.set(i, dades.estudiants.get(j));
+                    dades.estudiants.set(j, tempe);
+
+                }
+            }
+        }
+
+        String temppe;
+
+        for (int i = 0; i < dades.personatges.size(); i++) {
+
+            for (int j = i + 1; j < dades.personatges.size(); j++) {
+
+                if (dades.personatges.get(i).compareTo(dades.personatges.get(j)) < 0) {
+
+                    temppe = dades.personatges.get(i);
+                    dades.personatges.set(i, dades.personatges.get(j));
+                    dades.personatges.set(j, temppe);
+
+                }
+            }
+        }
+
+        String temppr;
+
+        for (int i = 0; i < dades.professors.size(); i++) {
+
+            for (int j = i + 1; j < dades.professors.size(); j++) {
+
+                if (dades.professors.get(i).compareTo(dades.professors.get(j)) < 0) {
+
+                    temppr = dades.professors.get(i);
+                    dades.professors.set(i, dades.professors.get(j));
+                    dades.professors.set(j, temppr);
+
+                }
+                /*//Collections.sort(dades.estudiants);
+                estudiants = new String[dades.estudiants.size()];
+                dades.estudiants.toArray(estudiants);
+
+                //Collections.sort(dades.personatges);
+                personatges = new String[dades.personatges.size()];
+                dades.personatges.toArray(personatges);
+
+                //Collections.sort(dades.professors);
+                professors = new String[dades.professors.size()];
+                dades.professors.toArray(professors);*/
+            }
+        }
     }
+
+
 
     /**
      * Afegeix l'element a la llista. Es manté la ordenació alfabética
