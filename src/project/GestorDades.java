@@ -1,64 +1,78 @@
 package project;
 
+import project.model.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import project.model.DadesAPI;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class GestorDades {
-    //Declarem les 3 arrays a on passarem les dades de les llistes de la classe DadesAPI quan les necessitem en forma d'array.
+    private DadesAPI dades;
+    public GestorDades() {
+        dades = new DadesAPI();
+    }
+
+    /*//Declarem les 3 arrays a on passarem les dades de les llistes de la classe DadesAPI quan les necessitem en forma d'array.
     public static String[] estudiants;
     public static String[] professors;
     public static String[] personatges;
-
+    */
     /**
      * Carrega des de l'API les dades que ens interessin.
      *
-     * @param dades parámetre que emmagatzemará les dades que hagim recuperat de l'API
      */
     //Invoquem el mètode que ens carrega les dades de l'API a les llistes de la classe DadesAPI i a continuació les conver-
     //-tim a array, a les 3 que hem creat adalt.
-    public static void carregarDades(DadesAPI dades) {
-        carregarDadesMngr("http://hp-api.herokuapp.com/api/characters/students", dades);
-        carregarDadesMngr("http://hp-api.herokuapp.com/api/characters/", dades);
-        carregarDadesMngr("http://hp-api.herokuapp.com/api/characters/staff", dades);
-
-
-        estudiants = new String[dades.estudiants.size()];
-        dades.estudiants.toArray(estudiants);
-
-        professors = new String[dades.professors.size()];
-        dades.professors.toArray(professors);
-
-        personatges = new String[dades.personatges.size()];
-        dades.personatges.toArray(personatges);
+    public void carregarDades() {
+        carregarEstudiants();
+        carregarProfessors();
 
     }
 
-    //Recorrem el JSON que correspongui i guardem les dades que ens interessan a les llistes de la classe DadesAPI
-    static void carregarDadesMngr(String link, DadesAPI dades) {
+    public void carregarEstudiants() {
         try {
-            URL url = new URL(link);
+            URL url = new URL("http://hp-api.herokuapp.com/api/characters/students");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             JSONParser parser = new JSONParser();
             JSONArray a = (JSONArray) parser.parse(new InputStreamReader(connection.getInputStream()));
             for (Object o : a) {
                 JSONObject person = (JSONObject) o;
-                if (link.equals("http://hp-api.herokuapp.com/api/characters/students")) {
-                    dades.estudiants.add(" - " + person.get("name") + " ||" + " -Espècie: " + person.get("species") + " |" + " -Casa: " + person.get("house") + " |" + " -Patronus: " + person.get("patronus") + " |" + " -Actor/Actriu: " + person.get("actor") + "\n");
-                }
-                if (link.equals("http://hp-api.herokuapp.com/api/characters/")) {
-                    dades.personatges.add(" - " + person.get("name") + " ||" + " -Espècie: " + person.get("species") + " |" + " -Casa: " + person.get("house") + " |" + " -Actor/Actriu: " + person.get("actor") + "\n");
-                }
-                if (link.equals("http://hp-api.herokuapp.com/api/characters/staff")) {
-                    dades.professors.add(" - " + person.get("name") + " ||" + " -Espècie: " + person.get("species") + " |" + " -Casa: " + person.get("house") + " |" + " -Actor/Actriu: " + person.get("actor") + "\n");
-                }
-            }
-        } catch (Exception e) {
 
+                String nom = person.get("name").toString();
+                String especie = person.get("species").toString();
+                String casa = person.get("house").toString();
+                String actor = person.get("actor").toString();
+                Estudiant est = new Estudiant(nom, especie, casa, actor);
+                dades.afegirEstudiant(est);
+            }
+            connection.disconnect();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void carregarProfessors() {
+        try {
+            URL url = new URL("http://hp-api.herokuapp.com/api/characters/staff");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            JSONParser parser = new JSONParser();
+            JSONArray a = (JSONArray) parser.parse(new InputStreamReader(connection.getInputStream()));
+            for (Object o : a) {
+                JSONObject person = (JSONObject) o;
+
+                String nom = person.get("name").toString();
+                String especie = person.get("species").toString();
+                String casa = person.get("house").toString();
+                String actor = person.get("actor").toString();
+                Professor prof = new Professor(nom, especie, casa, actor);
+                dades.afegirProfessor(prof);
+            }
+            connection.disconnect();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 

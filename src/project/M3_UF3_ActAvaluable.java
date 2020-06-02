@@ -1,5 +1,7 @@
 package project;
 
+        import project.model.DadesAPI;
+
         import java.io.IOException;
         import java.util.Scanner;
 
@@ -19,7 +21,6 @@ public class M3_UF3_ActAvaluable {
 
         Scanner sc = new Scanner(System.in);
         DadesAPI dades = new DadesAPI();
-        GestorDades.carregarDades(dades);
         String usuari;
         Interficie.mostrarMissatge("Inserta el teu nom:");
         usuari = sc.nextLine();
