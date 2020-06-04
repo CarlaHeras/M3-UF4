@@ -60,7 +60,9 @@ public class Interficie {
         System.out.println("Quin es el seu patronus?");
         String patronus = sc.next();
         System.out.println("Qui l'interpreta?");
+        sc.nextLine();
         String actor = sc.nextLine();
+        System.out.println("Creat!");
 
         if (x == "est") {
             gestor.getDades().afegirEstudiant(nom, especie, casa, patronus, actor);

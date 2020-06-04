@@ -91,7 +91,9 @@ public class M3_UF3_ActAvaluable {
                         System.out.println("Insereix dades a estudiants i professors!");
                     } else {
                         System.out.println("Quin personatge vols esborrar?");
-                        gestor.buscareliminarPersonatge(sc.nextLine().toLowerCase());
+                        sc.nextLine();
+                        String nom = sc.nextLine();
+                        gestor.buscareliminarPersonatge(nom.toLowerCase());
                     }
                     break;
                 case 0:
