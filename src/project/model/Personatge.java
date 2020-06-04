@@ -1,6 +1,6 @@
 package project.model;
 
-public class Personatge {
+public abstract class Personatge {
     private String nom;
     private String especie;
     private String casa;
