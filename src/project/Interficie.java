@@ -1,35 +1,23 @@
 package project;
 
-        import java.io.BufferedReader;
-        import java.io.FileReader;
-        import java.io.IOException;
+        import java.util.ArrayList;
+        import java.util.Scanner;
 
 public class Interficie {
 
-    static String[] opcmenu = {"----------------------------------------------------------------------------------------------------", "MENÚ PRINCIPAL", "1-Consultar dades", "2-Guardar dades", "3-Informació d'usuaris", "0-Sortir", "----------------------------------------------------------------------------------------------------", "Elegeix una opció:"};
-    static String[] opcmenu2 = {"----------------------------------------------------------------------------------------------------", "1-Veure tots els personatges de la saga", "2-Veure estudiants de Hogwarts", "3-Veure Staff de Hogwarts", "0-Tornar", "----------------------------------------------------------------------------------------------------", "Elegeix consulta:"};
+    static Scanner sc = new Scanner(System.in);
 
-    //Llegim el fitxer d'usuaris
-    public static void mostrarUsuaris() throws IOException {
-        System.out.println("Usuaris que han fet consultes:");
-        BufferedReader in = new BufferedReader(new FileReader("res//usuaris.txt"));
-        String line;
-        while ((line = in.readLine()) != null) {
-            System.out.println(line);
-        }
-        in.close();
-    }
+    static String[] opcmenu = {"----------------------------------------------------------------------------------------------------", "MENÚ PRINCIPAL", "1-Carregar dades", "2-Consultar dades", "3-Afegir dades", "4-Esborrar dades", "0-Sortir", "----------------------------------------------------------------------------------------------------", "Elegeix una opció:"};
+    static String[] opcmenu2 = {"----------------------------------------------------------------------------------------------------", "1-Veure tots els personatges de la saga", "2-Veure estudiants de Hogwarts", "3-Veure Staff de Hogwarts", "0-Tornar", "----------------------------------------------------------------------------------------------------", "Elegeix consulta:"};
 
     /**
      * Mostra informació que hagis recuperat de la teva API
      *
      * @param dades Array d'string amb informació
      */
-    public static void mostrarDades(String[] dades) { //Passem per paràmetre l'array de la consulta que sigui, i la printem.
-
-        for (int x = 0; x < dades.length; x++) {
-            System.out.println(dades[x]);
-        }
+    //Passem per paràmetre l'array de la consulta que sigui, i la printem.
+    public static void mostrarDades(ArrayList dades) {
+         System.out.println(dades.toString());
     }
 
     /**
@@ -41,7 +29,8 @@ public class Interficie {
      * @param menu Conté les diferents opcions que es mostraran per pantalla a
      *             l'usuari.
      */
-    public static void mostrarMenu(String[] menu) { //Printem el menú que rebem per paràmetre
+    //Printem el menú que rebem per paràmetre
+    public static void mostrarMenu(String[] menu) {
 
         for (int i = 0; i < menu.length; i++) {
 
@@ -60,4 +49,23 @@ public class Interficie {
         System.out.println(missatge);
     }
 
+    //AFEGIR ELS ATRIBUTS DEL NOU PERSONATGE
+    public static void preguntarAtributs(String x, GestorDades gestor ) {
+        System.out.println("Quin es el nom?");
+        String nom = sc.nextLine();
+        System.out.println("Quin es la seva especie?");
+        String especie = sc.next();
+        System.out.println("Quin es la seva casa?");
+        String casa = sc.next();
+        System.out.println("Quin es el seu patronus?");
+        String patronus = sc.next();
+        System.out.println("Qui l'interpreta?");
+        String actor = sc.nextLine();
+
+        if (x == "est") {
+            gestor.getDades().afegirEstudiant(nom, especie, casa, patronus, actor);
+        } else {
+            gestor.getDades().afegirProfessor(nom, especie, casa, patronus, actor);
+        }
+    }
 }
