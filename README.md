@@ -43,3 +43,10 @@
   * En el principal problema que m'he trobat ha sigut que m'he quedat sense company, amb poc temps i pràcticament sense gaire idea del que fer, per sort he aconseguit organitzarme el temps i buscar solucions als problemes que anava trobant.
 
   ## UML
+ * Diagrama de classes.
+ 
+ ![classes](https://raw.githubusercontent.com/CarlaHeras/M3-UF4/master/fotos/diag1.png)
+    
+ * Diagrama de casos d'ús.
+ 
+ ![classes](https://raw.githubusercontent.com/CarlaHeras/M3-UF4/master/fotos/diag2.png)
